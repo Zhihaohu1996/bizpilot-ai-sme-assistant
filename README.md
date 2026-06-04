@@ -1,35 +1,63 @@
 # BizPilot AI SME Assistant
 
-中小企业 AI 助理方案 App 原型：外贸接单台。
+An AI business copilot prototype for small and medium-sized companies: inquiry triage, quotation drafting, sales follow-up, knowledge-base readiness, and compliance review.
 
-![BizPilot AI SME Assistant preview](./preview.png)
+[Live Demo](https://zhihaohu1996.github.io/bizpilot-ai-sme-assistant/) · [Repository](https://github.com/Zhihaohu1996/bizpilot-ai-sme-assistant)
 
-## Why It Matters
+<p align="center">
+  <img src="./assets/screenshots/dashboard.png" alt="BizPilot AI SME Assistant dashboard" width="760">
+</p>
 
-中小企业的增长瓶颈常常不是“没有线索”，而是询盘分散、报价慢、资料不齐、合规表达没人复核、跟进任务丢失。这个原型把邮箱、官网表单、WhatsApp 和展会线索整理成一个 AI 经营助理工作台，帮助业务团队把询盘、报价和跟进变成连续成交流。
+## Overview
 
-## Highlights
+BizPilot AI SME Assistant is built for teams that receive leads from many channels but struggle to turn them into a repeatable sales workflow.
 
-- 经营驾驶舱：高意向询盘、机会金额、响应速度和跟进风险
-- 询盘工作台：客户画像、AI 意图识别、风险提示和下一步建议
-- 报价生成：MOQ、毛利、贸易条款和英文报价回复草稿
-- 资料库健康度：报价表、包装资料、认证报告和历史邮件样本
-- 跟进任务：自动生成待办，提醒人工复核敏感宣传表述
+The prototype combines inbox-style inquiry handling, AI intent detection, quotation drafting, product knowledge readiness, follow-up tasks, and compliance warnings. It is especially relevant for export-oriented SMEs that work across email, website forms, WhatsApp, trade shows, and product catalogs.
 
-## Demo
+## Key Features
 
-Open `index.html` in a browser, or publish this repository with GitHub Pages.
+- Business dashboard for new inquiries, quote value, response speed, and follow-up risk
+- Inquiry workspace with customer context, source channel, intent, and next action
+- AI-assisted quotation draft with MOQ, margin, trade terms, and English reply text
+- Knowledge-base readiness checks for product sheets, packaging data, certificates, and historical emails
+- Follow-up task list for sales owners and urgent opportunities
+- Compliance warning flow for sensitive product claims
 
-## Project Team
+## Screenshots
 
-This project was co-created by DanXian and Codex.
+<p align="center">
+  <img src="./assets/screenshots/dashboard.png" alt="BizPilot dashboard view" width="680">
+  <br>
+  <img src="./assets/screenshots/workflow.png" alt="BizPilot sales workflow view" width="680">
+  <br>
+  <img src="./assets/screenshots/mobile.png" alt="BizPilot mobile view" width="260">
+</p>
 
-制作人员：
+## Who It Is For
 
-- DanXian: product direction, business scenario design, and collaboration
-- Codex: AI-assisted prototyping, frontend implementation, and README preparation
+- Small and medium-sized export businesses
+- Sales teams handling multi-channel inquiries
+- Founders evaluating practical AI copilots for operations
+- Product builders studying AI workflow tools for non-technical business users
 
-## Suggested Topics
+## Project Status
 
-`sme`, `ai-assistant`, `business-copilot`, `sales-automation`, `export-business`, `prototype`, `github-pages`
+This is a high-fidelity static prototype for business workflow validation, demo conversations, and portfolio presentation.
 
+## Roadmap Ideas
+
+- Add real inbox imports from email, forms, and WhatsApp exports
+- Add a product knowledge-base editor and quote template manager
+- Add CRM-style customer history and task ownership
+- Add compliance review status for product claims and certificates
+- Add exportable quote sheets and email drafts
+
+## Team And Contributions
+
+- Zhihao Hu: project owner, product vision, SME scenario research, export-business workflow design, feature prioritization, market positioning, and final project direction
+- DanXian: collaborator, business scenario discussion, product feedback, and workflow refinement
+- Codex: AI-assisted implementation support, static frontend assembly, README formatting, and screenshot preparation
+
+## License
+
+MIT License. See [LICENSE](./LICENSE).
