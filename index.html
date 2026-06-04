@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>外贸AI接单经营助理</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">A</div>
+          <div>
+            <p class="eyebrow">AI经营助理</p>
+            <h1>外贸接单台</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="主导航">
+          <a class="nav-item active" href="#dashboard"><span class="nav-icon">◆</span>经营驾驶舱</a>
+          <a class="nav-item" href="#inquiries"><span class="nav-icon">◇</span>询盘工作台</a>
+          <a class="nav-item" href="#quote"><span class="nav-icon">□</span>报价生成</a>
+          <a class="nav-item" href="#knowledge"><span class="nav-icon">▣</span>资料库</a>
+          <a class="nav-item" href="#tasks"><span class="nav-icon">△</span>跟进任务</a>
+        </nav>
+
+        <div class="sidebar-card">
+          <p class="sidebar-label">今日优先级</p>
+          <strong id="priorityCount">8条询盘待处理</strong>
+          <span>其中2条为高意向客户，1条涉及功效宣称，建议先回复再人工复核。</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">义乌家居用品工贸 · 数据源：邮箱/官网/WhatsApp/展会</p>
+            <h2>询盘、报价、跟进变成成交流</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="syncBtn" type="button" title="同步询盘" aria-label="同步询盘">↻</button>
+            <button class="primary-action" id="dailyBtn" type="button">生成今日待办</button>
+          </div>
+        </header>
+
+        <section id="dashboard" class="dashboard-grid" aria-label="经营驾驶舱">
+          <article class="metric-card">
+            <span class="metric-label">本周新增询盘</span>
+            <strong>126</strong>
+            <small class="up">较上周 +18%</small>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">已报价金额</span>
+            <strong>$84,360</strong>
+            <small class="up">覆盖42个客户</small>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">平均首响时间</span>
+            <strong>7分钟</strong>
+            <small class="down">原人工约38分钟</small>
+          </article>
+          <article class="metric-card alert">
+            <span class="metric-label">超时未跟进</span>
+            <strong id="overdueMetric">11</strong>
+            <small>3条超过7天</small>
+          </article>
+        </section>
+
+        <section class="command-strip" aria-label="AI建议">
+          <div>
+            <p class="eyebrow">Next best actions</p>
+            <strong id="nextBestAction">优先处理 Casa Norte 的私标包装报价，并确认目标港口。</strong>
+          </div>
+          <div class="command-actions">
+            <button class="secondary-action" id="makeQuoteBtn" type="button">生成报价</button>
+            <button class="secondary-action" id="makeFollowBtn" type="button">写跟进话术</button>
+            <button class="secondary-action" id="markRiskBtn" type="button">合规复核</button>
+          </div>
+        </section>
+
+        <section class="workspace">
+          <section id="inquiries" class="panel inquiry-panel" aria-label="询盘工作台">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Inbox</p>
+                <h3>AI已识别询盘</h3>
+              </div>
+              <div class="segmented" role="group" aria-label="询盘筛选">
+                <button class="segment active" data-filter="all" type="button">全部</button>
+                <button class="segment" data-filter="hot" type="button">高意向</button>
+                <button class="segment" data-filter="risk" type="button">有风险</button>
+              </div>
+            </div>
+            <div class="inquiry-list" id="inquiryList"></div>
+          </section>
+
+          <section class="panel detail-panel" aria-label="询盘详情">
+            <div class="detail-top">
+              <div>
+                <p class="eyebrow" id="detailSource">Alibaba International</p>
+                <h3 id="detailTitle">客户询盘</h3>
+              </div>
+              <span class="score-badge" id="scoreBadge">88分</span>
+            </div>
+
+            <div class="detail-grid">
+              <div class="detail-box">
+                <span>国家/地区</span>
+                <strong id="detailCountry">Mexico</strong>
+              </div>
+              <div class="detail-box">
+                <span>采购阶段</span>
+                <strong id="detailStage">已询价</strong>
+              </div>
+              <div class="detail-box">
+                <span>预计订单</span>
+                <strong id="detailValue">$12,400</strong>
+              </div>
+            </div>
+
+            <div class="message-box">
+              <div class="message-head">
+                <strong>原始询盘</strong>
+                <span id="messageTime">09:18</span>
+              </div>
+              <p id="detailMessage"></p>
+            </div>
+
+            <div class="ai-summary">
+              <div class="summary-item">
+                <span>AI判断</span>
+                <strong id="aiIntent"></strong>
+              </div>
+              <div class="summary-item">
+                <span>建议动作</span>
+                <strong id="aiNext"></strong>
+              </div>
+              <div class="summary-item warning" id="riskItem">
+                <span>风险提示</span>
+                <strong id="aiRisk"></strong>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="secondary-action" id="advanceBtn" type="button">推进阶段</button>
+              <button class="primary-action" id="replyBtn" type="button">生成回复</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="lower-grid">
+          <section id="quote" class="panel quote-panel" aria-label="报价生成">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Quote</p>
+                <h3>报价单草稿</h3>
+              </div>
+              <button class="icon-button" id="copyQuoteBtn" type="button" title="复制报价" aria-label="复制报价">⧉</button>
+            </div>
+
+            <div class="quote-controls">
+              <label>
+                产品
+                <select id="productSelect"></select>
+              </label>
+              <label>
+                数量
+                <input id="quantityInput" type="number" min="100" step="100" value="1200">
+              </label>
+              <label>
+                贸易条款
+                <select id="termSelect">
+                  <option>FOB Ningbo</option>
+                  <option>EXW Yiwu</option>
+                  <option>CIF Manzanillo</option>
+                </select>
+              </label>
+              <label>
+                目标毛利
+                <input id="marginInput" type="number" min="5" max="60" step="1" value="22">
+              </label>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-row">
+                <span>建议单价</span>
+                <strong id="unitPrice">$2.84</strong>
+              </div>
+              <div class="quote-row">
+                <span>总价</span>
+                <strong id="totalPrice">$3,408</strong>
+              </div>
+              <div class="quote-row">
+                <span>交期</span>
+                <strong id="leadTime">15-18天</strong>
+              </div>
+              <div class="quote-row">
+                <span>包装</span>
+                <strong id="packaging">彩盒 + 外箱</strong>
+              </div>
+            </div>
+
+            <div class="draft-box" id="replyDraft"></div>
+          </section>
+
+          <section class="panel pipeline-panel" aria-label="销售漏斗">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Pipeline</p>
+                <h3>成交漏斗</h3>
+              </div>
+              <span class="panel-note">$132k in progress</span>
+            </div>
+            <div class="pipeline" id="pipeline"></div>
+          </section>
+
+          <section id="tasks" class="panel task-panel" aria-label="跟进任务">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Follow-up</p>
+                <h3>今日跟进</h3>
+              </div>
+              <button class="secondary-action" id="addTaskBtn" type="button">新增</button>
+            </div>
+            <div class="task-list" id="taskList"></div>
+          </section>
+        </section>
+
+        <section class="insight-grid">
+          <section id="knowledge" class="panel knowledge-panel" aria-label="企业资料库">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Knowledge base</p>
+                <h3>企业资料库健康度</h3>
+              </div>
+              <span class="health-badge" id="healthBadge">82%</span>
+            </div>
+            <div class="health-meter">
+              <span id="healthBar"></span>
+            </div>
+            <div class="knowledge-list" id="knowledgeList"></div>
+          </section>
+
+          <section class="panel product-panel" aria-label="产品卡">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Product cards</p>
+                <h3>可自动报价产品</h3>
+              </div>
+              <span class="panel-note">4个产品已结构化</span>
+            </div>
+            <div class="product-table" id="productTable"></div>
+          </section>
+
+          <section id="report" class="panel report-panel" aria-label="老板周报">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Weekly brief</p>
+                <h3>老板周报</h3>
+              </div>
+              <button class="secondary-action" id="refreshReportBtn" type="button">刷新</button>
+            </div>
+            <ul class="report-list" id="reportList"></ul>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
